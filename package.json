@@ -1,0 +1,21 @@
+{
+  "name": "vite-plugin-oss-asset",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zhuscat",
+  "license": "ISC",
+  "dependencies": {
+    "ali-oss": "^6.17.1",
+    "chalk": "4"
+  },
+  "devDependencies": {
+    "rollup": "^2.72.1",
+    "vite": "^2.9.8"
+  }
+}
