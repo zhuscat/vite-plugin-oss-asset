@@ -42,13 +42,6 @@ export const DEFAULT_ASSETS_RE = new RegExp(
 export default function ossAssets(options = {}) {
   const cache = new Map()
 
-  const client = new OSS({
-    region: options.region,
-    accessKeyId: options.accessKeyId,
-    accessKeySecret: options.accessKeySecret,
-    bucket: options.bucket,
-  })
-
   return {
     name: 'vite:oss-asset',
 
@@ -83,6 +76,18 @@ export default function ossAssets(options = {}) {
     },
 
     async buildEnd() {
+      const client = new OSS({
+        region: options.region,
+        accessKeyId: options.accessKeyId,
+        accessKeySecret: options.accessKeySecret,
+        bucket: options.bucket,
+      })
+
+      if (cache.size === 0) {
+        console.log(`\nno assets for uploading. skip upload assets to oss\n`)
+        return
+      }
+
       console.log(`\nstart upload assets to oss\n`)
 
       for (const [originPath, { path }] of cache.entries()) {
