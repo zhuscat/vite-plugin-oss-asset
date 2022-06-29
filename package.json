@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "ali-oss": "^6.17.1",
+    "async": "^3.2.4",
     "chalk": "4"
   },
   "devDependencies": {

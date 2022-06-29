@@ -2,6 +2,7 @@ import fs from 'fs'
 import OSS from 'ali-oss'
 import crypto from 'crypto'
 import chalk from 'chalk'
+import eachLimit from 'async/eachLimit'
 
 export const KNOWN_ASSET_TYPES = [
   // images
@@ -90,10 +91,11 @@ export default function ossAssets(options = {}) {
 
       console.log(`\nstart upload assets to oss\n`)
 
-      for (const [originPath, { path }] of cache.entries()) {
+      await eachLimit(cache.entries(), 20, async function(entry) {
+        const [originPath, { path }] = entry
         await client.put(path, originPath)
         console.log(`upload ${chalk.green(originPath)} to ${chalk.green(path)}`)
-      }
+      })
 
       console.log(`\nupload success\n`)
     },
