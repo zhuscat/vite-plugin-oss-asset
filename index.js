@@ -58,7 +58,7 @@ export default function ossAssets(options = {}) {
         if (fs.existsSync(id)) {
           const buf = await fs.promises.readFile(id)
           const md5 = crypto.createHash('md5')
-          const hash = md5.update(buf).digest('hex')
+          const hash = md5.update(buf).digest('hex').slice(0, 12)
           const path = `${options.pathPrefix}/${hash}${match[0]}`
           const url = `${options.cdnHost}/${path}`
           const mod = `export default ${JSON.stringify(url)}`
